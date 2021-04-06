@@ -7,36 +7,18 @@ const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
 exports.default = router;
 const contact_1 = __importDefault(require("../Models/contact"));
-router.get('/', function (req, res, next) {
-    res.render('index', { title: 'Home', page: 'home', displayName: '' });
-});
-router.get('/home', function (req, res, next) {
-    res.render('index', { title: 'Home', page: 'home', displayName: '' });
-});
-router.get('/about', function (req, res, next) {
-    res.render('index', { title: 'About Us', page: 'about', displayName: '' });
-});
-router.get('/services', function (req, res, next) {
-    res.render('index', { title: 'Our Services', page: 'services', displayName: '' });
-});
-router.get('/projects', function (req, res, next) {
-    res.render('index', { title: 'Our Projects', page: 'projects', displayName: '' });
-});
-router.get('/contact', function (req, res, next) {
-    res.render('index', { title: 'Contact Us', page: 'contact', displayName: '' });
-});
-router.get('/login', function (req, res, next) {
-    res.render('index', { title: 'Login', page: 'login', displayName: '' });
-});
-router.post('/login', function (req, res, next) {
-    res.redirect('/contact-list');
-});
-router.get('/register', function (req, res, next) {
-    res.render('index', { title: 'Register', page: 'register', displayName: '' });
-});
-router.get('/logout', function (req, res, next) {
-    res.render('index', { title: 'Logout', page: 'logout', displayName: '' });
-});
+const index_1 = require("../Controllers/index");
+router.get('/', index_1.DisplayHomePage);
+router.get('/home', index_1.DisplayHomePage);
+router.get('/about', index_1.DisplayAboutPage);
+router.get('/services', index_1.DisplayServicesPage);
+router.get('/projects', index_1.DisplayProjectsPage);
+router.get('/contact', index_1.DisplayContactPage);
+router.get('/login', index_1.DisplayLoginPage);
+router.get('/register', index_1.DisplayRegisterPage);
+router.post('/login', index_1.ProcessLoginPage);
+router.post('/register', index_1.ProcessRegisterPage);
+router.get('/logout', index_1.ProcessLogoutPage);
 router.get('/contact-list', function (req, res, next) {
     contact_1.default.find(function (err, contacts) {
         if (err) {

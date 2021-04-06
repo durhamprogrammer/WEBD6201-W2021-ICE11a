@@ -6,68 +6,43 @@ export default router;
 // Contact Model
 import Contact from "../Models/contact";
 
+// Index Controller Instance
+import { DisplayAboutPage, DisplayContactPage, DisplayHomePage, DisplayLoginPage, DisplayProjectsPage, DisplayRegisterPage, DisplayServicesPage, ProcessLoginPage, ProcessLogoutPage, ProcessRegisterPage } from '../Controllers/index';
+
 /* GET home page - with / */
-router.get('/', function(req, res, next) 
-{
-  res.render('index', { title: 'Home', page: 'home', displayName: ''   });
-});
+router.get('/', DisplayHomePage);
 
 /* GET home page - with /home */
-router.get('/home', function(req, res, next) 
-{
-  res.render('index', { title: 'Home', page: 'home', displayName: ''    });
-});
+router.get('/home', DisplayHomePage);
 
 /* GET about page - with /about */
-router.get('/about', function(req, res, next) 
-{
-  res.render('index', { title: 'About Us', page: 'about', displayName: ''    });
-});
+router.get('/about', DisplayAboutPage);
 
 /* GET services page - with /services */
-router.get('/services', function(req, res, next) 
-{
-  res.render('index', { title: 'Our Services', page: 'services', displayName: ''    });
-});
+router.get('/services', DisplayServicesPage);
 
 /* GET projects page - with /projects */
-router.get('/projects', function(req, res, next) 
-{
-  res.render('index', { title: 'Our Projects', page: 'projects', displayName: ''    });
-});
+router.get('/projects', DisplayProjectsPage);
 
 /* GET contact page - with /contact */
-router.get('/contact', function(req, res, next) 
-{
-  res.render('index', { title: 'Contact Us', page: 'contact', displayName: ''    });
-});
+router.get('/contact', DisplayContactPage);
 
 /* GET login page - with /login */
-router.get('/login', function(req, res, next) 
-{
-  res.render('index', { title: 'Login', page: 'login', displayName: ''    });
-});
+router.get('/login', DisplayLoginPage);
+
+/* GET register page - with /register */
+router.get('/register', DisplayRegisterPage);
 
 
 /**************** Temporary routes for authentication and registration *********************/
-/* GET login page - with /login */
-router.post('/login', function(req, res, next) 
-{
-  res.redirect('/contact-list');
-});
+/* Process login page - with /login */
+router.post('/login', ProcessLoginPage);
 
+/* Process register page - with /register */
+router.post('/register', ProcessRegisterPage);
 
-/* GET register page - with /register */
-router.get('/register', function(req, res, next) 
-{
-  res.render('index', { title: 'Register', page: 'register', displayName: ''    });
-});
-
-/* GET logout page - with /logout */
-router.get('/logout', function(req, res, next) 
-{
-  res.render('index', { title: 'Logout', page: 'logout', displayName: ''    });
-});
+/* Process logout page - with /logout */
+router.get('/logout', ProcessLogoutPage);
 
 
 /********************** temporary routes - contact-list related pages **********************/
