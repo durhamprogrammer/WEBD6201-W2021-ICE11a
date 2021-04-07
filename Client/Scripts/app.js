@@ -75,36 +75,6 @@ var core;
         formValidation();
     }
     function displayLogin() {
-        let messageArea = $("#messageArea");
-        messageArea.hide();
-        $("#loginButton").on("click", function () {
-            let username = $("#username");
-            let password = $("#password");
-            let success = false;
-            let newUser = new core.User();
-            $.get("./Data/users.json", function (data) {
-                for (const user of data.users) {
-                    if (username.val() == user.Username && password.val() == user.Password) {
-                        newUser.fromJSON(user);
-                        success = true;
-                        break;
-                    }
-                }
-                if (success) {
-                    sessionStorage.setItem("user", newUser.serialize());
-                    messageArea.removeAttr("class").hide();
-                    $("form").trigger("submit");
-                }
-                else {
-                    username.trigger("focus").trigger("select");
-                    messageArea.show().addClass("alert alert-danger").text("Error: Invalid login information");
-                }
-            });
-        });
-        $("#cancelButton").on("click", function () {
-            document.forms[0].reset();
-            location.href = '/home';
-        });
     }
     function performLogout() {
         sessionStorage.clear();

@@ -2,7 +2,12 @@
     <div class="offset-md-3 col-md-6 col-sm-12">
           <div class="login" id="contentArea">
               <h1 class="display-4">Login</h1>
-              <div id="messageArea"></div>
+
+              <% if(messages.length > 0) { %> 
+                <div id="messageArea" class="alert alert-danger">
+                  <%= messages %>
+                </div>
+              <% } %>
 
               <form id="loginForm" novalidate method="POST">
                 <div class="form-group">
@@ -29,7 +34,7 @@
                 </div>                                        
                 <div class="text-end mt-2">
                   <button id="loginButton" type="submit" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Login</button>
-                  <a href="/home" id="cancelButton" type="button" class="btn btn-warning"><i class="fas fa-undo"></i> Cancel</a>
+                  <button id="cancelButton" type="reset" class="btn btn-warning"><i class="fas fa-undo"></i> Cancel</button>
                 </div>
               </form>
              

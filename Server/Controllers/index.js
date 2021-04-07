@@ -29,9 +29,14 @@ function DisplayContactPage(req, res, next) {
 exports.DisplayContactPage = DisplayContactPage;
 function DisplayLoginPage(req, res, next) {
     if (!req.user) {
-        res.render('index', { title: 'Login', page: 'login', displayName: '' });
+        res.render('index', {
+            title: 'Login',
+            page: 'login',
+            messages: req.flash('loginMessage'),
+            displayName: req.user ? req.user.displayName : ''
+        });
     }
-    return res.redirect('/home');
+    return res.redirect('/contact-list');
 }
 exports.DisplayLoginPage = DisplayLoginPage;
 function DisplayRegisterPage(req, res, next) {

@@ -38,9 +38,15 @@ export function DisplayLoginPage(req: Request, res: Response, next: NextFunction
 {
     if(!req.user)
     {
-        res.render('index', { title: 'Login', page: 'login', displayName: ''    });
+        res.render('index', 
+        { 
+            title: 'Login', 
+            page: 'login', 
+            messages: req.flash('loginMessage'),
+            displayName: req.user ? req.user.displayName : ''   
+        });
     }
-    return res.redirect('/home');
+    return res.redirect('/contact-list');
     
 }
 
