@@ -11,27 +11,27 @@ import User from '../Models/user';
 
 export function DisplayHomePage(req: Request, res: Response, next: NextFunction): void
 {
-    res.render('index', { title: 'Home', page: 'home', displayName: ''   });
+    res.render('index', { title: 'Home', page: 'home', displayName: req.user ? req.user.displayName : ''    });
 }
 
 export function DisplayAboutPage(req: Request, res: Response, next: NextFunction): void
 {
-    res.render('index', { title: 'About Us', page: 'about', displayName: ''    });
+    res.render('index', { title: 'About Us', page: 'about', displayName: req.user ? req.user.displayName : ''    });
 }
 
 export function DisplayServicesPage(req: Request, res: Response, next: NextFunction): void
 {
-    res.render('index', { title: 'Our Services', page: 'services', displayName: ''    });
+    res.render('index', { title: 'Our Services', page: 'services', displayName: req.user ? req.user.displayName : ''    });
 }
 
 export function DisplayProjectsPage(req: Request, res: Response, next: NextFunction): void
 {
-    res.render('index', { title: 'Our Projects', page: 'projects', displayName: ''    });
+    res.render('index', { title: 'Our Projects', page: 'projects', displayName: req.user ? req.user.displayName : ''    });
 }
 
 export function DisplayContactPage(req: Request, res: Response, next: NextFunction): void
 {
-    res.render('index', { title: 'Contact Us', page: 'contact', displayName: ''    });
+    res.render('index', { title: 'Contact Us', page: 'contact', displayName: req.user ? req.user.displayName : ''   });
 }
 
 export function DisplayLoginPage(req: Request, res: Response, next: NextFunction): void
@@ -60,7 +60,7 @@ export function DisplayRegisterPage(req: Request, res: Response, next: NextFunct
             title: 'Register', 
             page: 'auth/register', 
             messages: req.flash('registerMessage'),
-            displayName: ''    
+            displayName: req.user ? req.user.displayName : ''   
         });
     }
     return res.redirect('/login');
@@ -105,11 +105,36 @@ export function ProcessLoginPage(req: Request, res: Response, next: NextFunction
 
 export function ProcessRegisterPage(req: Request, res: Response, next: NextFunction): void
 {
-    
+    // instantiate a new user object
+    let newUser = new User({
+        username: req.body.username,
+        EmailAddress: req.body.EmailAddress,
+        DisplayName: req.body.FirstName + " " + req.body.LastName
+    });
+
+    User.register(newUser, req.body.password, (err) => 
+    {
+        if(err)
+        {
+            console.error('Error: Inserting New User')
+            if(err.name == "UserExistsError")
+            {
+                req.flash('registerMessage','Registration Error');
+                console.error('Error: User Already Exists');
+            }
+            return res.redirect('/register');
+        }
+
+        // automatically login the user
+        return passport.authenticate('local')(req, res, ()=>{
+            res.redirect('/contact-list');
+        });
+    });
 }
 
 export function ProcessLogoutPage(req: Request, res: Response, next: NextFunction): void
 {
-    
+    req.logout();
+    res.redirect('/login');
 }
 

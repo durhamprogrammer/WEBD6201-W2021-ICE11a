@@ -97,9 +97,6 @@ namespace core
 
     function displayContactList() :void
     {
-      // don't allow visitors to go here
-      authGuard();
-
       // confirm deletion
       $("a.delete").on("click", function(event){
         if(!confirm("Are you sure?"))
@@ -108,8 +105,6 @@ namespace core
           location.href = '/contact-list';
         }       
       });
-
-      
     }
 
     function displayEdit(): void
@@ -121,7 +116,6 @@ namespace core
     function displayLogin():void
     {
       // any validation will be done here
-
       
     }
 
@@ -130,28 +124,7 @@ namespace core
       // any validation will be done here
     }
 
-    function performLogout():void
-    {
-        sessionStorage.clear();
-        location.href = '/login';
-    }
-
-    function authGuard():void
-    {
-      if(!sessionStorage.getItem("user"))
-      {
-      location.href = '/login';
-      }
-    }
-
-    function display404():void
-    {
-
-    }
-
-    
-
-    /**
+     /**
      * This is the entry point for our program
      *
      */
