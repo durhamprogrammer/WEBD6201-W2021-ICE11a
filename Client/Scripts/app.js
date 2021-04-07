@@ -76,6 +76,8 @@ var core;
     }
     function displayLogin() {
     }
+    function displayRegister() {
+    }
     function performLogout() {
         sessionStorage.clear();
         location.href = '/login';
@@ -96,12 +98,11 @@ var core;
             case 'contact':
                 displayContact();
                 break;
-            case 'login':
+            case 'auth/login':
                 displayLogin();
                 break;
-            case 'logout':
-                performLogout();
-            case 'register':
+            case 'auth/register':
+                displayRegister();
                 break;
             case 'contact-list':
                 displayContactList();

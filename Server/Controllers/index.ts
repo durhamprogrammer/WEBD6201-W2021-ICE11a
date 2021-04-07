@@ -41,7 +41,7 @@ export function DisplayLoginPage(req: Request, res: Response, next: NextFunction
         res.render('index', 
         { 
             title: 'Login', 
-            page: 'login', 
+            page: 'auth/login', 
             messages: req.flash('loginMessage'),
             displayName: req.user ? req.user.displayName : ''   
         });
@@ -55,9 +55,15 @@ export function DisplayRegisterPage(req: Request, res: Response, next: NextFunct
     // check if the user is already logged in
     if(!req.user)
     {
-        res.render('index', { title: 'Register', page: 'register', displayName: ''    });
+        res.render('index', 
+        { 
+            title: 'Register', 
+            page: 'auth/register', 
+            messages: req.flash('registerMessage'),
+            displayName: ''    
+        });
     }
-    return res.redirect('/home');
+    return res.redirect('/login');
 }
 
 
