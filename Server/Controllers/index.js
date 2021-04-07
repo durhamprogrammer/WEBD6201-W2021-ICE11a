@@ -30,7 +30,7 @@ function DisplayContactPage(req, res, next) {
 exports.DisplayContactPage = DisplayContactPage;
 function DisplayLoginPage(req, res, next) {
     if (!req.user) {
-        res.render('index', {
+        return res.render('index', {
             title: 'Login',
             page: 'auth/login',
             messages: req.flash('loginMessage'),
@@ -59,6 +59,7 @@ function ProcessLoginPage(req, res, next) {
             return next(err);
         }
         if (!user) {
+            console.error("Authentication Error");
             req.flash('loginMessage', 'Authentication Error');
             return res.redirect('/login');
         }
@@ -75,8 +76,8 @@ exports.ProcessLoginPage = ProcessLoginPage;
 function ProcessRegisterPage(req, res, next) {
     let newUser = new user_1.default({
         username: req.body.username,
-        EmailAddress: req.body.EmailAddress,
-        DisplayName: req.body.FirstName + " " + req.body.LastName
+        emailAddress: req.body.EmailAddress,
+        displayName: req.body.FirstName + " " + req.body.LastName
     });
     user_1.default.register(newUser, req.body.password, (err) => {
         if (err) {

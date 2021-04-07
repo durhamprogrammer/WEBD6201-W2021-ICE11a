@@ -5,8 +5,8 @@ import passportLocalMongoose from 'passport-local-mongoose';
 const UserSchema = new Schema
 ({
     username: String,
-    EmailAddress: String,
-    DisplayName: String,
+    emailAddress: String,
+    displayName: String,
     created:
     {
        type: Date,

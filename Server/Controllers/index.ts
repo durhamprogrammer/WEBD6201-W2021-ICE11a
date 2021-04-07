@@ -7,6 +7,20 @@ import passport from 'passport';
 // create the User Model Instance
 import User from '../Models/user';
 
+// Helper Function
+declare global
+{
+    namespace Express
+    {
+        export interface User
+        {
+            displayName: string;
+        }
+    }
+}
+
+
+
 // Display Page Functions
 
 export function DisplayHomePage(req: Request, res: Response, next: NextFunction): void
@@ -38,7 +52,7 @@ export function DisplayLoginPage(req: Request, res: Response, next: NextFunction
 {
     if(!req.user)
     {
-        res.render('index', 
+        return res.render('index', 
         { 
             title: 'Login', 
             page: 'auth/login', 
@@ -84,6 +98,7 @@ export function ProcessLoginPage(req: Request, res: Response, next: NextFunction
         // are there login errors?
         if(!user)
         {
+            console.error("Authentication Error");
             req.flash('loginMessage', 'Authentication Error');
             return res.redirect('/login');
         }
@@ -108,8 +123,8 @@ export function ProcessRegisterPage(req: Request, res: Response, next: NextFunct
     // instantiate a new user object
     let newUser = new User({
         username: req.body.username,
-        EmailAddress: req.body.EmailAddress,
-        DisplayName: req.body.FirstName + " " + req.body.LastName
+        emailAddress: req.body.EmailAddress,
+        displayName: req.body.FirstName + " " + req.body.LastName
     });
 
     User.register(newUser, req.body.password, (err) => 
