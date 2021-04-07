@@ -39,11 +39,11 @@ const contact_list_1 = __importDefault(require("../Routes/contact-list"));
 const app = express_1.default();
 exports.default = app;
 const DBConfig = __importStar(require("./db"));
-mongoose_1.default.connect(DBConfig.URI, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose_1.default.connect(DBConfig.RemoteURI, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose_1.default.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
-    console.log(`Connected to MongoDB at: ${DBConfig.URI}`);
+    console.log(`Connected to MongoDB at: ${DBConfig.ConnectionType}`);
 });
 app.set('views', path_1.default.join(__dirname, '../Views'));
 app.set('view engine', 'ejs');
